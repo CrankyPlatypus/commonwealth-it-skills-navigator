@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commonwealth IT Career & Skills Navigator</title>
+  <style>
+    :root {
+      --mass-navy: #14558f;
+      --mass-navy-dark: #0c3b66;
+      --mass-green: #2e7d32;
+      --mass-gold: #f3b61f;
+      --danger: #c62828;
+      --warning: #ef6c00;
+      --bg-light: #f4f6f9;
+      --surface: #ffffff;
+      --text-main: #1b2430;
+      --text-muted: #4a5568;
+      --border: #d8e0e8;
+      --focus-ring: #005fcc;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.55;
+    }
+
+    /* Top Official Style Banner */
+    .gov-banner {
+      background-color: var(--mass-navy-dark);
+      color: #ffffff;
+      font-size: 0.85rem;
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--mass-navy) 0%, var(--mass-navy-dark) 100%);
+      color: #ffffff;
+      padding: 2rem 1.5rem;
+      border-bottom: 5px solid var(--mass-gold);
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      color: #e2ecf5;
+      max-width: 720px;
+      font-size: 1.02rem;
+    }
+
+    /* Stepper Navigation */
+    .stepper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .step-pill {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .step-pill.active {
+      border-color: var(--mass-navy);
+      background: #ebf3fa;
+      color: var(--mass-navy-dark);
+    }
+
+    .step-pill.completed {
+      border-color: var(--mass-green);
+      color: var(--mass-green);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .step-pill.active .step-num {
+      background: var(--mass-navy);
+      color: #ffffff;
+    }
+
+    .step-pill.completed .step-num {
+      background: var(--mass-green);
+      color: #ffffff;
+    }
+
+    main {
+      padding: 0 1.5rem 3.5rem;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      margin-bottom: 1.5rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .section-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      color: var(--mass-navy-dark);
+      margin-bottom: 0.35rem;
+    }
+
+    /* Career Path Cards */
+    .career-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .career-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .career-card:hover,
+    .career-card:focus-within {
+      border-color: var(--mass-navy);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(20, 85, 143, 0.1);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: #e6f0fa;
+      color: var(--mass-navy-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .career-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .career-card p {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      margin-bottom: 1rem;
+    }
+
+    .role-list {
+      list-style: none;
+      margin-bottom: 1.25rem;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      background: var(--bg-light);
+      padding: 0.75rem;
+      border-radius: 6px;
+    }
+
+    .role-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background-color: var(--mass-navy);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--mass-navy-dark);
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: var(--mass-navy-dark);
+      border-color: var(--mass-navy);
+    }
+
+    .btn-secondary:hover {
+      background-color: #ebf3fa;
+    }
+
+    .btn-gold {
+      background-color: var(--mass-gold);
+      color: #1b2430;
+    }
+
+    .btn-gold:hover {
+      background-color: #e0a512;
+    }
+
+    /* Assessment Questions */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .question-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      background: #fafbfc;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .question-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--mass-navy-dark);
+    }
+
+    .benchmark-tag {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: #e9eef4;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .question-prompt {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .rating-group {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+    }
+
+    .rating-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .rating-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 0.4rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      background: #ffffff;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .rating-label strong {
+      font-size: 1.05rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .rating-option input[type="radio"]:checked + .rating-label {
+      background: var(--mass-navy);
+      color: #ffffff;
+      border-color: var(--mass-navy-dark);
+    }
+
+    .rating-option input[type="radio"]:focus-visible + .rating-label {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* Results Dashboard */
+    .results-summary {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      background: #f8fafd;
+      border: 2px solid #d0e1f2;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .score-circle {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: conic-gradient(var(--mass-navy) var(--progress, 0%), #e2e8f0 0%);
+      position: relative;
+    }
+
+    .score-circle::before {
+      content: "";
+      position: absolute;
+      width: 136px;
+      height: 136px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .score-inner {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .score-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--mass-navy-dark);
+      line-height: 1.1;
+    }
+
+    .score-caption {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .gap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .gap-card {
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--mass-navy);
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      background: #ffffff;
+    }
+
+    .gap-card.priority {
+      border-left-color: var(--danger);
+      background: #fffafa;
+    }
+
+    .gap-card.moderate {
+      border-left-color: var(--warning);
+    }
+
+    .gap-card.met {
+      border-left-color: var(--mass-green);
+    }
+
+    .status-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+    }
+
+    .status-pill.priority {
+      background: #fdecea;
+      color: var(--danger);
+    }
+
+    .status-pill.moderate {
+      background: #fff3e0;
+      color: var(--warning);
+    }
+
+    .status-pill.met {
+      background: #e8f5e9;
+      color: var(--mass-green);
+    }
+
+    /* Sequenced Learning Plan */
+    .pathway-step {
+      display: flex;
+      gap: 1rem;
+      padding: 1.15rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.85rem;
+      background: #ffffff;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .pathway-info {
+      flex: 1 1 420px;
+    }
+
+    .pathway-step h4 {
+      font-size: 1.05rem;
+      color: var(--mass-navy-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    @media (max-width: 720px) {
+      .stepper {
+        grid-template-columns: 1fr;
+      }
+      .results-summary {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .rating-group {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gov-banner" role="region" aria-label="Prototype Banner">
+    <span>Commonwealth of Massachusetts • IT Career &amp; Skills Navigator Prototype</span>
+    <span>No Login Required • Rule-Based Readiness Assessment</span>
+  </div>
+
+  <header>
+    <div class="container">
+      <h1>Commonwealth IT Career &amp; Skills Navigator</h1>
+      <p>Discover how your current technical skills align with entry-level Massachusetts state IT roles, identify priority skill gaps, and follow a sequenced learning plan.</p>
+    </div>
+  </header>
+
+  <nav class="container stepper" aria-label="Assessment Progress">
+    <div class="step-pill active" id="step-indicator-1">
+      <span class="step-num">1</span>
+      <span>Choose IT Career Goal</span>
+    </div>
+    <div class="step-pill" id="step-indicator-2">
+      <span class="step-num">2</span>
+      <span>Rate Current Skills</span>
+    </div>
+    <div class="step-pill" id="step-indicator-3">
+      <span class="step-num">3</span>
+      <span>Readiness &amp; Learning Plan</span>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- STEP 1: CHOOSE CAREER PATH -->
+    <section id="step-1" class="section-card" aria-labelledby="step1-heading">
+      <div class="section-header">
+        <h2 id="step1-heading">Step 1: Choose a Commonwealth IT Career Path</h2>
+        <p>Select one of the three entry-level state IT career tracks below to benchmark your current skill readiness.</p>
+      </div>
+      <div class="career-grid" id="career-cards-container"></div>
+    </section>
+
+    <!-- STEP 2: SKILL ASSESSMENT -->
+    <section id="step-2" class="section-card hidden" aria-labelledby="step2-heading">
+      <div class="toolbar">
+        <div>
+          <span class="badge" id="selected-track-badge">Track</span>
+          <h2 id="step2-heading">Step 2: Rate Your Current Skills (1 to 5)</h2>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-gold" id="demo-fill-btn">
+            Load 63% Showcase Demo Profile
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="goToStep(1)">
+            Change Career Path
+          </button>
+        </div>
+      </div>
+
+      <form id="skills-form">
+        <div id="questions-container"></div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+          <button type="submit" class="btn btn-primary">Calculate My Readiness &rarr;</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- STEP 3: RESULTS & SEQUENCED LEARNING PLAN -->
+    <section id="step-3" class="section-card hidden" aria-labelledby="step3-heading" aria-live="polite">
+      <div class="toolbar">
+        <div>
+          <span class="badge" id="results-track-badge">Results</span>
+          <h2 id="step3-heading">Step 3: Readiness Report &amp; Sequenced Learning Plan</h2>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" onclick="goToStep(2)">
+            &larr; Edit Skill Ratings
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="goToStep(1)">
+            Start Over
+          </button>
+        </div>
+      </div>
+
+      <!-- Readiness Overview -->
+      <div class="results-summary">
+        <div class="score-circle" id="score-circle">
+          <div class="score-inner">
+            <div class="score-number" id="readiness-score-text">0%</div>
+            <div class="score-caption">Readiness</div>
+          </div>
+        </div>
+        <div>
+          <h3 id="readiness-headline" style="font-size: 1.35rem; margin-bottom: 0.5rem;"></h3>
+          <p id="readiness-summary-text" style="color: var(--text-muted); margin-bottom: 0.9rem;"></p>
+          <p style="font-size: 0.92rem;">
+            <strong>Priority Gaps Identified:</strong>
+            <span id="priority-gaps-banner" style="color: var(--danger); font-weight: 700;">None</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Skill Breakdown Grid -->
+      <div class="section-header">
+        <h2>Skill-by-Skill Gap Analysis</h2>
+        <p>Comparison of your self-reported rating against the entry-level Commonwealth benchmark.</p>
+      </div>
+      <div class="gap-grid" id="gap-grid-container"></div>
+
+      <!-- Sequenced Learning Plan -->
+      <div class="section-header">
+        <h2>Recommended Next Steps: Sequenced Learning Plan</h2>
+        <p>Complete these targeted modules in order to close your highest-priority skill gaps before applying on MassCareers.</p>
+      </div>
+      <div id="learning-pathway-container"></div>
+
+      <!-- MassCareers Call to Action -->
+      <div style="margin-top: 2rem; padding: 1.25rem; background: #ebf3fa; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.1rem; color: var(--mass-navy-dark);">Ready to explore live Commonwealth openings?</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Browse active state technology postings on the official MassCareers portal.</p>
+        </div>
+        <a href="https://massanf.taleo.net/careersection/ex/jobsearch.ftl" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Explore MassCareers Portal &nearr;
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Commonwealth IT Career &amp; Skills Navigator • UMass Boston IT 485 Capstone Prototype
+  </footer>
+
+  <script>
+    const CAREER_PATHS = {
+      data_analytics: {
+        id: "data_analytics",
+        title: "Data Analytics",
+        badge: "Data & Business Intelligence",
+        description: "Transform agency datasets into actionable dashboards, KPI reports, and policy insights for Massachusetts state departments.",
+        roles: [
+          "EOTSS Business Intelligence Analyst I",
+          "Junior Civic Data Analyst",
+          "Agency Reporting & Visualization Specialist"
+        ],
+        skills: [
+          {
+            id: "sql",
+            name: "SQL & Relational Databases",
+            prompt: "Writing SQL queries (JOINs, GROUP BY, filtering) to extract and aggregate records from relational databases.",
+            benchmark: 4,
+            demoScore: 1,
+            resourceTitle: "Mode SQL Tutorial & PostgreSQL Exercises for Data Analysts",
+            resourceUrl: "https://mode.com/sql-tutorial/"
+          },
+          {
+            id: "viz",
+            name: "Data Visualization (Tableau / Power BI)",
+            prompt: "Building interactive dashboards, parameter filters, and accessible visual stories for non-technical stakeholders.",
+            benchmark: 4,
+            demoScore: 1,
+            resourceTitle: "Tableau Public Free Training & Civic Dashboard Design Guide",
+            resourceUrl: "https://public.tableau.com/app/learn/how-to-videos"
+          },
+          {
+            id: "python_cleaning",
+            name: "Data Cleaning & Wrangling (Python / Pandas)",
+            prompt: "Cleaning messy CSV/JSON datasets, handling missing values, and automating repeatable data preparation scripts.",
+            benchmark: 4,
+            demoScore: 2,
+            resourceTitle: "Kaggle Free Course: Data Cleaning & Pandas Fundamentals",
+            resourceUrl: "https://www.kaggle.com/learn/pandas"
+          },
+          {
+            id: "excel",
+            name: "Advanced Spreadsheets (Excel / Google Sheets)",
+            prompt: "Using PivotTables, XLOOKUP, conditional aggregations, and data validation for rapid departmental reporting.",
+            benchmark: 4,
+            demoScore: 4,
+            resourceTitle: "Microsoft Learn: Data Analysis in Excel",
+            resourceUrl: "https://learn.microsoft.com/en-us/training/"
+          },
+          {
+            id: "stats",
+            name: "KPI Definition & Descriptive Statistics",
+            prompt: "Selecting meaningful operational metrics, calculating trends, and avoiding misleading data interpretations.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: "Khan Academy: Statistics and Probability Essentials",
+            resourceUrl: "https://www.khanacademy.org/math/statistics-probability"
+          },
+          {
+            id: "governance",
+            name: "Public Sector Data Privacy & Governance",
+            prompt: "Handling sensitive resident records responsibly, de-identifying PII, and following state security standards.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: "Mass.gov Enterprise Information Security Standards Overview",
+            resourceUrl: "https://www.mass.gov/orgs/executive-office-of-technology-services-and-security"
+          },
+          {
+            id: "storytelling",
+            name: "Stakeholder Presentation & Data Storytelling",
+            prompt: "Translating technical findings into clear policy or operational recommendations for agency leadership.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: "Storytelling with Data: Public Sector Communication Guide",
+            resourceUrl: "https://www.storytellingwithdata.com/"
+          },
+          {
+            id: "open_data",
+            name: "Open Data Portals & REST APIs",
+            prompt: "Retrieving public datasets from portals like Mass.gov Data, Analyze Boston, or JSON endpoints.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: " Commonwealth Open Data Portal & API Documentation",
+            resourceUrl: "https://www.mass.gov/info-details/massgov-data"
+          }
+        ]
+      },
+      cybersecurity: {
+        id: "cybersecurity",
+        title: "Cybersecurity",
+        badge: "Information Security & SOC",
+        description: "Protect Commonwealth networks, monitor security alerts, and help state agencies maintain compliance and cyber resilience.",
+        roles: [
+          "Security Operations Center (SOC) Analyst I",
+          "Information Security Risk Specialist",
+          "Identity & Access Management (IAM) Associate"
+        ],
+        skills: [
+          {
+            id: "siem",
+            name: "SIEM & Log Analysis",
+            prompt: "Inspecting system, firewall, and authentication logs to detect anomalous or malicious activity.",
+            benchmark: 4,
+            demoScore: 2,
+            resourceTitle: "CISA Free Cybersecurity Training & Exercises",
+            resourceUrl: "https://www.cisa.gov/cyber-career-pathways-tool"
+          },
+          {
+            id: "network_sec",
+            name: "Network Security & Protocols",
+            prompt: "Understanding TCP/IP, DNS, VPNs, firewalls, and packet inspection fundamentals.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: "Cisco Networking Academy: Network Defense Basics",
+            resourceUrl: "https://www.netacad.com/"
+          },
+          {
+            id: "incident_response",
+            name: "Incident Triage & Response Playbooks",
+            prompt: "Following structured containment, eradication, and escalation steps during a security alert.",
+            benchmark: 4,
+            demoScore: 2,
+            resourceTitle: "NIST SP 800-61 Computer Security Incident Handling Guide",
+            resourceUrl: "https://csrc.nist.gov/"
+          },
+          {
+            id: "iam",
+            name: "Identity & Access Management (Least Privilege)",
+            prompt: "Managing role-based access controls (RBAC), multi-factor authentication (MFA), and directory permissions.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: "Microsoft Learn: Identity and Access Fundamentals",
+            resourceUrl: "https://learn.microsoft.com/en-us/training/"
+          },
+          {
+            id: "vuln",
+            name: "Vulnerability Scanning & Patch Management",
+            prompt: "Identifying unpatched CVEs and prioritizing remediation across agency endpoints and servers.",
+            benchmark: 4,
+            demoScore: 2,
+            resourceTitle: "OWASP Top 10 & Vulnerability Management Guide",
+            resourceUrl: "https://owasp.org/"
+          },
+          {
+            id: "compliance",
+            name: "NIST Framework & State Security Policies",
+            prompt: "Mapping technical controls to the NIST Cybersecurity Framework and EOTSS enterprise standards.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: "NIST Cybersecurity Framework (CSF 2.0) Resource Center",
+            resourceUrl: "https://www.nist.gov/cyberframework"
+          }
+        ]
+      },
+      it_support: {
+        id: "it_support",
+        title: "IT Support & Operations",
+        badge: "Enterprise Service Desk",
+        description: "Deliver reliable technical support, endpoint management, and hardware/software troubleshooting across state offices.",
+        roles: [
+          "Enterprise Desktop Support Technician I",
+          "IT Help Desk Specialist (EOTSS)",
+          "Systems & Endpoint Support Associate"
+        ],
+        skills: [
+          {
+            id: "ticketing",
+            name: "ITSM Ticketing & SLA Management (ServiceNow)",
+            prompt: "Logging, categorizing, prioritizing, and resolving user incidents clearly within ServiceNow or similar ITSM tools.",
+            benchmark: 4,
+            demoScore: 2,
+            resourceTitle: "ServiceNow Now Learning: Welcome to ServiceNow (Free)",
+            resourceUrl: "https://nowlearning.servicenow.com/"
+          },
+          {
+            id: "active_directory",
+            name: "Active Directory & Microsoft 365 Administration",
+            prompt: "Resetting accounts, managing group memberships, and troubleshooting Exchange/Teams/OneDrive issues.",
+            benchmark: 4,
+            demoScore: 2,
+            resourceTitle: "Microsoft 365 Endpoint Administrator Learning Path",
+            resourceUrl: "https://learn.microsoft.com/en-us/training/"
+          },
+          {
+            id: "os_troubleshooting",
+            name: "Windows & macOS Endpoint Troubleshooting",
+            prompt: "Diagnosing operating system boot issues, driver conflicts, storage limits, and software deployment errors.",
+            benchmark: 4,
+            demoScore: 4,
+            resourceTitle: "Google IT Support Professional Reference Guides",
+            resourceUrl: "https://www.coursera.org/professional-certificates/google-it-support"
+          },
+          {
+            id: "networking_basics",
+            name: "LAN / Wi-Fi & VPN Connectivity Support",
+            prompt: "Troubleshooting IP configuration (DHCP/DNS), remote VPN access, and office network drops.",
+            benchmark: 4,
+            demoScore: 3,
+            resourceTitle: "CompTIA A+ & Network+ Core Troubleshooting Concepts",
+            resourceUrl: "https://www.comptia.org/"
+          },
+          {
+            id: "accessibility_support",
+            name: "Assistive Technology & Digital Accessibility",
+            prompt: "Supporting employees using screen readers, magnifiers, and accessible document/web configurations.",
+            benchmark: 4,
+            demoScore: 2,
+            resourceTitle: "W3C Web Accessibility Initiative (WAI) Fundamentals",
+            resourceUrl: "https://www.w3.org/WAI/fundamentals/"
+          },
+          {
+            id: "customer_service",
+            name: "Empathetic User Communication & Documentation",
+            prompt: "Explaining technical fixes in plain language and writing clear internal knowledge-base articles.",
+            benchmark: 4,
+            demoScore: 4,
+            resourceTitle: "Digital.gov Plain Language Guidelines for Public Sector IT",
+            resourceUrl: "https://digital.gov/guides/plain-language/"
+          }
+        ]
+      }
+    };
+
+    const RATING_LABELS = [
+      { value: 1, label: "No Exposure" },
+      { value: 2, label: "Beginner" },
+      { value: 3, label: "Intermediate" },
+      { value: 4, label: "Job-Ready" },
+      { value: 5, label: "Advanced" }
+    ];
+
+    let currentTrackKey = "data_analytics";
+
+    function renderCareerCards() {
+      const container = document.getElementById("career-cards-container");
+      container.innerHTML = Object.values(CAREER_PATHS).map(track => `
+        <article class="career-card">
+          <div>
+            <span class="badge">${track.badge}</span>
+            <h3>${track.title}</h3>
+            <p>${track.description}</p>
+            <div class="role-list">
+              <strong>Sample Commonwealth Roles:</strong>
+              <ul>
+                ${track.roles.map(r => `<li>• ${r}</li>`).join("")}
+              </ul>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="selectCareer('${track.id}')">
+            Select ${track.title} &rarr;
+          </button>
+        </article>
+      `).join("");
+    }
+
+    function selectCareer(trackKey) {
+      currentTrackKey = trackKey;
+      const track = CAREER_PATHS[trackKey];
+      document.getElementById("selected-track-badge").textContent = track.title;
+
+      const demoBtn = document.getElementById("demo-fill-btn");
+      demoBtn.textContent = trackKey === "data_analytics"
+        ? "Load 63% Showcase Demo Profile"
+        : "Load Sample Profile";
+
+      const qContainer = document.getElementById("questions-container");
+      qContainer.innerHTML = track.skills.map((skill, idx) => `
+        <div class="question-item">
+          <div class="question-header">
+            <span class="question-title">${idx + 1}. ${skill.name}</span>
+            <span class="benchmark-tag">Commonwealth Target: ${skill.benchmark} / 5</span>
+          </div>
+          <p class="question-prompt">${skill.prompt}</p>
+          <div class="rating-group" role="radiogroup" aria-label="${skill.name}">
+            ${RATING_LABELS.map(r => `
+              <div class="rating-option">
+                <input
+                  type="radio"
+                  name="skill_${skill.id}"
+                  id="skill_${skill.id}_${r.value}"
+                  value="${r.value}"
+                  ${r.value === 3 ? "checked" : ""}
+                  required
+                />
+                <label class="rating-label" for="skill_${skill.id}_${r.value}">
+                  <strong>${r.value}</strong>
+                  <span>${r.label}</span>
+                </label>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+
+      goToStep(2);
+    }
+
+    document.getElementById("demo-fill-btn").addEventListener("click", () => {
+      const track = CAREER_PATHS[currentTrackKey];
+      track.skills.forEach(skill => {
+        const radio = document.getElementById(`skill_${skill.id}_${skill.demoScore}`);
+        if (radio) radio.checked = true;
+      });
+    });
+
+    document.getElementById("skills-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      calculateResults();
+    });
+
+    function calculateResults() {
+      const track = CAREER_PATHS[currentTrackKey];
+      let totalEarned = 0;
+      let totalBenchmark = 0;
+
+      const evaluatedSkills = track.skills.map(skill => {
+        const selected = document.querySelector(`input[name="skill_${skill.id}"]:checked`);
+        const userRating = selected ? parseInt(selected.value, 10) : 1;
+        const cappedContribution = Math.min(userRating, skill.benchmark);
+        totalEarned += cappedContribution;
+        totalBenchmark += skill.benchmark;
+
+        const gap = Math.max(0, skill.benchmark - userRating);
+        return {
+          ...skill,
+          userRating,
+          gap
+        };
+      });
+
+      const readinessPct = Math.round((totalEarned / totalBenchmark) * 100);
+
+      // Sort by largest gap first for the learning plan
+      const sortedByGap = [...evaluatedSkills].sort((a, b) => b.gap - a.gap);
+      const priorityGaps = sortedByGap.filter(s => s.gap >= 2);
+      const allGaps = sortedByGap.filter(s => s.gap > 0);
+
+      // Update UI Header & Score Circle
+      document.getElementById("results-track-badge").textContent = `${track.title} Pathway`;
+      document.getElementById("readiness-score-text").textContent = `${readinessPct}%`;
+      document.getElementById("score-circle").style.setProperty("--progress", `${readinessPct}%`);
+
+      const headlineEl = document.getElementById("readiness-headline");
+      const summaryEl = document.getElementById("readiness-summary-text");
+
+      if (readinessPct >= 85) {
+        headlineEl.textContent = `Strong Readiness for ${track.title} Roles`;
+        summaryEl.textContent = "Your current skill profile closely matches entry-level Commonwealth benchmarks. Review any minor gaps below and prepare your MassCareers application.";
+      } else if (readinessPct >= 60) {
+        headlineEl.textContent = `Moderate Readiness (${readinessPct}%) — Targeted Upskilling Recommended`;
+        summaryEl.textContent = `You have a solid foundation for ${track.title}, but closing your top priority gaps will significantly strengthen your candidacy for state interviews.`;
+      } else {
+        headlineEl.textContent = `Foundational Stage (${readinessPct}%) — Follow the Learning Plan Below`;
+        summaryEl.textContent = `Focus on completing the sequenced training modules below to build core competencies for Commonwealth ${track.title} positions.`;
+      }
+
+      const priorityBanner = document.getElementById("priority-gaps-banner");
+      if (priorityGaps.length > 0) {
+        priorityBanner.textContent = priorityGaps.map(g => g.name).join(", ");
+        priorityBanner.style.color = "var(--danger)";
+      } else if (allGaps.length > 0) {
+        priorityBanner.textContent = allGaps.map(g => g.name).join(", ") + " (Minor Gaps)";
+        priorityBanner.style.color = "var(--warning)";
+      } else {
+        priorityBanner.textContent = "All benchmark skills met!";
+        priorityBanner.style.color = "var(--mass-green)";
+      }
+
+      // Render Skill Breakdown Grid
+      const gapGrid = document.getElementById("gap-grid-container");
+      gapGrid.innerHTML = sortedByGap.map(s => {
+        let statusClass = "met";
+        let statusLabel = "Benchmark Met";
+        if (s.gap >= 2) {
+          statusClass = "priority";
+          statusLabel = `Priority Gap (-${s.gap} pts)`;
+        } else if (s.gap === 1) {
+          statusClass = "moderate";
+          statusLabel = "Developing (-1 pt)";
+        }
+
+        return `
+          <div class="gap-card ${statusClass}">
+            <span class="status-pill ${statusClass}">${statusLabel}</span>
+            <h3 style="font-size: 1rem; margin-bottom: 0.35rem;">${s.name}</h3>
+            <p style="font-size: 0.86rem; color: var(--text-muted);">
+              Your Rating: <strong>${s.userRating} / 5</strong> &bull; Target: <strong>${s.benchmark} / 5</strong>
+            </p>
+          </div>
+        `;
+      }).join("");
+
+      // Render Sequenced Learning Pathway
+      const pathwayContainer = document.getElementById("learning-pathway-container");
+      if (allGaps.length === 0) {
+        pathwayContainer.innerHTML = `
+          <div class="pathway-step">
+            <div class="pathway-info">
+              <h4>All Core Benchmarks Met!</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">You meet or exceed all target benchmarks for this track. Proceed directly to MassCareers to filter for entry-level roles.</p>
+            </div>
+          </div>
+        `;
+      } else {
+        pathwayContainer.innerHTML = allGaps.map((s, index) => `
+          <div class="pathway-step">
+            <div class="pathway-info">
+              <span class="status-pill ${s.gap >= 2 ? "priority" : "moderate"}">
+                Step ${index + 1} • ${s.gap >= 2 ? "High Priority" : "Recommended Polish"}
+              </span>
+              <h4>Close Gap in ${s.name} (Current: ${s.userRating}/5 &rarr; Target: ${s.benchmark}/5)</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">
+                Recommended Resource: <strong>${s.resourceTitle}</strong>
+              </p>
+            </div>
+            <a href="${s.resourceUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              Launch Learning Resource &nearr;
+            </a>
+          </div>
+        `).join("");
+      }
+
+      goToStep(3);
+    }
+
+    function goToStep(stepNumber) {
+      [1, 2, 3].forEach(n => {
+        const section = document.getElementById(`step-${n}`);
+        const pill = document.getElementById(`step-indicator-${n}`);
+        if (n === stepNumber) {
+          section.classList.remove("hidden");
+          pill.classList.add("active");
+          pill.classList.remove("completed");
+        } else {
+          section.classList.add("hidden");
+          pill.classList.remove("active");
+          if (n < stepNumber) {
+            pill.classList.add("completed");
+          } else {
+            pill.classList.remove("completed");
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Initialize Step 1 on load
+    renderCareerCards();
+  </script>
+</body>
+</html>
